@@ -91,11 +91,14 @@ typecast_BYTES_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cas
 static PyObject *
 typecast_UNICODE_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
-    connectionObject *conn;
+    connectionObject *conn = NULL;
 
     if (s == NULL) { Py_RETURN_NONE; }
 
-    conn = ((cursorObject*)curs)->conn;
+    if (curs != NULL && curs != Py_None) {
+        conn = ((cursorObject*)curs)->conn;
+    }
+
     return conn_decode(conn, s, len);
 }
 

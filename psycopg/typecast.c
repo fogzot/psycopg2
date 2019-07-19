@@ -639,9 +639,12 @@ typecast_cast(PyObject *obj, const char *str, Py_ssize_t len, PyObject *curs)
     Py_INCREF(obj);
 
     /* Store the caster in the cursor for compatibility only.
-     * It should not be used anymore during the cast operations. */
-    old = ((cursorObject*)curs)->caster;
-    ((cursorObject*)curs)->caster = obj;
+     * It should not be used anymore during the cast operations.
+     * If the cursor is None, just go on. */
+    if (curs != Py_None) {
+        old = ((cursorObject*)curs)->caster;
+        ((cursorObject*)curs)->caster = obj;
+    }
 
     if (self->ccast) {
         res = self->ccast(str, len, curs, obj);
@@ -672,7 +675,10 @@ typecast_cast(PyObject *obj, const char *str, Py_ssize_t len, PyObject *curs)
         PyErr_SetString(Error, "internal error: no casting function found");
     }
 
-    ((cursorObject*)curs)->caster = old;
+    if (curs != Py_None) {
+        ((cursorObject*)curs)->caster = old;
+    }
+
     Py_DECREF(obj);
 
     return res;
