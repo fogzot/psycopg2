@@ -186,12 +186,12 @@ static typecastObject_initlist typecast_default = {
     "DEFAULT", typecast_default_DEFAULT, typecast_STRING_cast};
 
 static PyObject *
-typecast_UNKNOWN_cast(const char *str, Py_ssize_t len, PyObject *curs)
+typecast_UNKNOWN_cast(const char *str, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     Dprintf("typecast_UNKNOWN_cast: str = '%s',"
             " len = " FORMAT_CODE_PY_SSIZE_T, str, len);
 
-    return typecast_default.cast(str, len, curs);
+    return typecast_default.cast(str, len, curs, cast);
 }
 
 #include "psycopg/typecast_builtins.c"
@@ -637,11 +637,14 @@ typecast_cast(PyObject *obj, const char *str, Py_ssize_t len, PyObject *curs)
     typecastObject *self = (typecastObject *)obj;
 
     Py_INCREF(obj);
+
+    /* Store the caster in the cursor for compatibility only.
+     * It should not be used anymore during the cast operations. */
     old = ((cursorObject*)curs)->caster;
     ((cursorObject*)curs)->caster = obj;
 
     if (self->ccast) {
-        res = self->ccast(str, len, curs);
+        res = self->ccast(str, len, curs, obj);
     }
     else if (self->pcast) {
         PyObject *s;

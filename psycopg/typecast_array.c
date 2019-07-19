@@ -245,10 +245,10 @@ typecast_array_scan(const char *str, Py_ssize_t strlength,
     have to be taken on the single items **/
 
 static PyObject *
-typecast_GENERIC_ARRAY_cast(const char *str, Py_ssize_t len, PyObject *curs)
+typecast_GENERIC_ARRAY_cast(const char *str, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     PyObject *obj = NULL;
-    PyObject *base = ((typecastObject*)((cursorObject*)curs)->caster)->bcast;
+    PyObject *base = ((typecastObject*)cast)->bcast;
 
     Dprintf("typecast_GENERIC_ARRAY_cast: str = '%s',"
             " len = " FORMAT_CODE_PY_SSIZE_T, str, len);

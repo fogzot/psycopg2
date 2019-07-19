@@ -27,7 +27,7 @@
 
 #if PY_2
 static PyObject *
-typecast_INTEGER_cast(const char *s, Py_ssize_t len, PyObject *curs)
+typecast_INTEGER_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     char buffer[12];
 
@@ -45,7 +45,7 @@ typecast_INTEGER_cast(const char *s, Py_ssize_t len, PyObject *curs)
 /** LONGINTEGER - cast long integers (8 bytes) to python long **/
 
 static PyObject *
-typecast_LONGINTEGER_cast(const char *s, Py_ssize_t len, PyObject *curs)
+typecast_LONGINTEGER_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     char buffer[24];
 
@@ -60,7 +60,7 @@ typecast_LONGINTEGER_cast(const char *s, Py_ssize_t len, PyObject *curs)
 /** FLOAT - cast floating point numbers to python float **/
 
 static PyObject *
-typecast_FLOAT_cast(const char *s, Py_ssize_t len, PyObject *curs)
+typecast_FLOAT_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     PyObject *str = NULL, *flo = NULL;
 
@@ -79,7 +79,7 @@ typecast_FLOAT_cast(const char *s, Py_ssize_t len, PyObject *curs)
 /** BYTES - cast strings of any type to python bytes **/
 
 static PyObject *
-typecast_BYTES_cast(const char *s, Py_ssize_t len, PyObject *curs)
+typecast_BYTES_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     if (s == NULL) { Py_RETURN_NONE; }
     return Bytes_FromStringAndSize(s, len);
@@ -89,7 +89,7 @@ typecast_BYTES_cast(const char *s, Py_ssize_t len, PyObject *curs)
 /** UNICODE - cast strings of any type to a python unicode object **/
 
 static PyObject *
-typecast_UNICODE_cast(const char *s, Py_ssize_t len, PyObject *curs)
+typecast_UNICODE_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     connectionObject *conn;
 
@@ -112,7 +112,7 @@ typecast_UNICODE_cast(const char *s, Py_ssize_t len, PyObject *curs)
 /** BOOLEAN - cast boolean value into right python object **/
 
 static PyObject *
-typecast_BOOLEAN_cast(const char *s, Py_ssize_t len, PyObject *curs)
+typecast_BOOLEAN_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     PyObject *res;
 
@@ -130,7 +130,7 @@ typecast_BOOLEAN_cast(const char *s, Py_ssize_t len, PyObject *curs)
 /** DECIMAL - cast any kind of number into a Python Decimal object **/
 
 static PyObject *
-typecast_DECIMAL_cast(const char *s, Py_ssize_t len, PyObject *curs)
+typecast_DECIMAL_cast(const char *s, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     PyObject *res = NULL;
     PyObject *decimalType;

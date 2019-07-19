@@ -139,7 +139,7 @@ static char *parse_escape(
 
 /* The function is not static and not hidden as we use ctypes to test it. */
 PyObject *
-typecast_BINARY_cast(const char *s, Py_ssize_t l, PyObject *curs)
+typecast_BINARY_cast(const char *s, Py_ssize_t l, PyObject *curs, PyObject *cast)
 {
     chunkObject *chunk = NULL;
     PyObject *res = NULL;

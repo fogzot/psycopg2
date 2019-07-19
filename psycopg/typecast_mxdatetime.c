@@ -43,7 +43,7 @@ typecast_mxdatetime_init(void)
 /** DATE - cast a date into mx.DateTime python object **/
 
 static PyObject *
-typecast_MXDATE_cast(const char *str, Py_ssize_t len, PyObject *curs)
+typecast_MXDATE_cast(const char *str, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     int n, y=0, m=0, d=0;
     int hh=0, mm=0, ss=0, us=0, tz=0;
@@ -93,7 +93,7 @@ typecast_MXDATE_cast(const char *str, Py_ssize_t len, PyObject *curs)
 /** TIME - parse time into an mx.DateTime object **/
 
 static PyObject *
-typecast_MXTIME_cast(const char *str, Py_ssize_t len, PyObject *curs)
+typecast_MXTIME_cast(const char *str, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     int n, hh=0, mm=0, ss=0, us=0, tz=0;
 
@@ -120,7 +120,7 @@ typecast_MXTIME_cast(const char *str, Py_ssize_t len, PyObject *curs)
 /** INTERVAL - parse an interval into an mx.DateTimeDelta **/
 
 static PyObject *
-typecast_MXINTERVAL_cast(const char *str, Py_ssize_t len, PyObject *curs)
+typecast_MXINTERVAL_cast(const char *str, Py_ssize_t len, PyObject *curs, PyObject *cast)
 {
     long years = 0, months = 0, days = 0, denominator = 1;
     double hours = 0.0, minutes = 0.0, seconds = 0.0, hundredths = 0.0;

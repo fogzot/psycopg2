@@ -32,7 +32,8 @@ extern "C" {
 
 /* type of type-casting functions (both C and Python) */
 typedef PyObject *(*typecast_function)(const char *str, Py_ssize_t len,
-                                       PyObject *cursor);
+                                       PyObject *cursor,
+                                       PyObject *caster);
 
 /** typecast type **/
 
